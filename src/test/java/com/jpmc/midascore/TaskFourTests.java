@@ -1,5 +1,7 @@
 package com.jpmc.midascore;
 
+import com.jpmc.midascore.entity.UserRecord;
+import com.jpmc.midascore.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,6 +24,8 @@ public class TaskFourTests {
 
     @Autowired
     private FileLoader fileLoader;
+    @Autowired
+    private UserRepository userRepository;
 
     @Test
     void task_four_verifier() throws InterruptedException {
@@ -31,6 +35,11 @@ public class TaskFourTests {
             kafkaProducer.send(transactionLine);
         }
         Thread.sleep(2000);
+
+        UserRecord waldorf = userRepository.findByName("waldorf")
+                .orElseThrow(() -> new RuntimeException("Waldorf not found"));
+
+        logger.info("Waldorf's balance: {}", waldorf.getBalance());
 
 
         logger.info("----------------------------------------------------------");

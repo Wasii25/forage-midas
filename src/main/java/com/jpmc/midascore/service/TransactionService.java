@@ -1,6 +1,7 @@
 package com.jpmc.midascore.service;
 
 
+import ch.qos.logback.classic.Logger;
 import com.jpmc.midascore.component.Incentive;
 import com.jpmc.midascore.entity.TransactionRecord;
 import com.jpmc.midascore.entity.User;
@@ -55,6 +56,10 @@ public class TransactionService {
 
         userRepository.save(sender);
         userRepository.save(recipient);
+        UserRecord waldorf = userRepository.findByName("waldorf")
+                .orElseThrow(() -> new RuntimeException("Waldorf not found"));
+
+
 
         TransactionRecord record = new TransactionRecord();
         record.setSender(sender);
