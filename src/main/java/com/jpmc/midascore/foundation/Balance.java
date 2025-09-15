@@ -13,6 +13,10 @@ public class Balance {
         this.amount = amount;
     }
 
+    public Balance(Long id, float balance) {
+        amount = balance;
+    }
+
     public float getAmount() {
         return amount;
     }
